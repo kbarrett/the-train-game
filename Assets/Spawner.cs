@@ -25,6 +25,7 @@ public class Spawner : MonoBehaviour {
             {
                 GameObject obj = (GameObject)  Instantiate(objectType);
                 obj.transform.SetParent(canvas);
+                obj.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 obj.transform.localPosition = new Vector2(i, j);
 
             }
