@@ -47,6 +47,8 @@ public class StartTrainDragDetector : MonoBehaviour {
         if(isDragging)
         {
             print(route.ToString());
+            route.GetRouteEnd().ApplyToAdjacentNodes((Node x) => { x.SetHighlight(false); });
+            route.EndRoute();
         }
         IsPressing = false;
         isDragging = false;
@@ -63,11 +65,20 @@ public class StartTrainDragDetector : MonoBehaviour {
 
             route = new TrainRoute(currentNode);
 
-            currentNode.ApplyToAdjacentNodes((Node adjacentNode) => { adjacentNode.SetHighlight(true); adjacentNode.SetCurrentRoute(route); });
+            currentNode.ApplyToAdjacentNodes((Node adjacentNode) =>
+            {
+                adjacentNode.SetHighlight(true); adjacentNode.SetCurrentRoute(route); adjacentNode.OnAddedToRoute += OnAddedToRoute;
+            });
             isDragging = true;
 
             
         }
+    }
+
+    void OnAddedToRoute(Node n)
+    {
+        Node currentNode = GetComponent<Node>();
+        currentNode.ApplyToAdjacentNodes((Node adjacentNode) => { adjacentNode.SetHighlight(false); });
     }
 
 

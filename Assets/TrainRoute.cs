@@ -27,5 +27,18 @@ public class TrainRoute
 
         return SB.ToString();
     }
+
+    public Node GetRouteEnd()
+    {
+        return Route.Last();
+    }
+
+    public void EndRoute()
+    {
+        foreach(Node n in Route)
+        {
+            n.SetSelected(false);
+        }
+    }
 }
 
